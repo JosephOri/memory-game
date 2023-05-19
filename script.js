@@ -10,30 +10,25 @@ document.getElementById("myForm").addEventListener("submit", function(event) {
   event.preventDefault();
   var form = document.getElementById("myForm");
   var submittedNumber = parseInt(form.inputNumber.value);
-  
   if (submittedNumber > 30) {
     alert("Input must be less than 30");
     return;
   }
-  
-  removeAllElement(form);
+  removeElementAndHisChildren(form);
   updateScores();
 
   var memoryCardsDiv = document.getElementById("memory-cards");
-  
   for (var i = 0; i < submittedNumber; i++) {
-    for (var j = 0; j < 2; j++) {
+    for (var j = 0; j < 2; j++) {//making 2 cards of each image
       var newCard = document.createElement("div");
-      newCard.id = "image"+i+""+j;
       newCard.className = "image"+i;  
       setImageToCardBack(newCard);      
       cards.push(newCard);
-      
     }
     cards = shuffleCards(cards);
     cards.forEach(element => {
       memoryCardsDiv.appendChild(element);
-      element.addEventListener("click",turnCard);
+      element.addEventListener("click",flipCardLogic);
     });
   }
 });
@@ -43,11 +38,12 @@ function setImageToCardBack(newCard) {
   newCard.style.backgroundImage = "url('" + cardBackUrl + "')";
 }
 
- function turnCard(event){
+ function flipCardLogic(event){
   var targetElement = event.target;
   var className = targetElement.classList;
   var id = targetElement.id;
   var cardFrontUrl = "cards/"+className+".jpg";
+
   targetElement.style.backgroundImage = "url('" + cardFrontUrl + "')"; 
   openedCards.push(targetElement);
   if(openedCards.length == 2){
@@ -61,9 +57,8 @@ function setImageToCardBack(newCard) {
       openedCards.forEach(card => {
         setTimeout(() => {
           setImageToCardBack(card);
-        }, 1000); // 1-second delay for each iteration
+        }, 1000); // 1-second delay 
       });
-      
   }
   openedCards = [];
   updateScores();
@@ -80,7 +75,7 @@ function updateScores(){
   score2Div.textContent = "player2: "+player2Score;
 }
 
-function removeAllElement(element) {
+function removeElementAndHisChildren(element) {
   while (element.firstChild) {
     element.removeChild(element.firstChild);
   }
