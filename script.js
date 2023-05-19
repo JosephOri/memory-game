@@ -59,14 +59,16 @@ function setImageToCardBack(newCard) {
           setImageToCardBack(card);
         }, 1000); // 1-second delay 
       });
-  }
-  openedCards = [];
-  updateScores();
-  if(turn == 1)
+      if(turn == 1)
       turn = 2;
    else
       turn = 1; 
   }
+  openedCards = [];
+  updateScores();
+ 
+  }
+  document.getElementById("turn").textContent = "player "+turn+" turn";
  }
 
 
