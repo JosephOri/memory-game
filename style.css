@@ -1,0 +1,23 @@
+#score{
+    font-size: 35px;
+}
+#memory-cards{
+    height: 800px;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    align-content: center;
+
+}
+#memory-cards > div{
+    background-image: "url'cards\card-back.png'";
+    background-size: cover; /* Adjust the background size property */
+    background-position: center;
+    height: 300px;
+    width: 200px;
+    margin: 10px;
+    border-radius: 10px;    
+    align-items: center;
+    cursor: pointer;
+}
