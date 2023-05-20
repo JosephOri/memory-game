@@ -6,7 +6,7 @@ var turn = 1;
 var score1Div = document.getElementById("score1");
 var score2Div = document.getElementById("score2");
 
-document.getElementById("myForm").addEventListener("submit", function(event) {
+document.getElementById("myForm").addEventListener("submit", function (event) {
   event.preventDefault();
   var form = document.getElementById("myForm");
   var submittedNumber = parseInt(form.inputNumber.value);
@@ -17,18 +17,19 @@ document.getElementById("myForm").addEventListener("submit", function(event) {
   removeElementAndHisChildren(form);
   updateScores();
 
-  var memoryCardsDiv = document.getElementById("memory-cards");
-  for (var i = 0; i < submittedNumber; i++) {
-    for (var j = 0; j < 2; j++) {//making 2 cards of each image
-      var newCard = document.createElement("div");
-      newCard.className = "image"+i;  
-      setImageToCardBack(newCard);      
+  let memoryCardsDiv = document.getElementById("memory-cards");
+  for (let i = 0; i < submittedNumber; i++) {
+    for (let j = 0; j < 2; j++) {
+      //making 2 cards of each image
+      let newCard = document.createElement("div");
+      newCard.className = "image" + i;
+      setImageToCardBack(newCard);
       cards.push(newCard);
     }
     cards = shuffleCards(cards);
-    cards.forEach(element => {
+    cards.forEach((element) => {
       memoryCardsDiv.appendChild(element);
-      element.addEventListener("click",flipCardLogic);
+      element.addEventListener("click", flipCardLogic);
     });
   }
 });
@@ -38,43 +39,36 @@ function setImageToCardBack(newCard) {
   newCard.style.backgroundImage = "url('" + cardBackUrl + "')";
 }
 
- function flipCardLogic(event){
+function flipCardLogic(event) {
   var targetElement = event.target;
   var className = targetElement.classList;
   var id = targetElement.id;
-  var cardFrontUrl = "cards/"+className+".jpg";
+  var cardFrontUrl = "cards/" + className + ".jpg";
 
-  targetElement.style.backgroundImage = "url('" + cardFrontUrl + "')"; 
+  targetElement.style.backgroundImage = "url('" + cardFrontUrl + "')";
   openedCards.push(targetElement);
-  if(openedCards.length == 2){
-    if(openedCards[0].className == openedCards[1].className){
-      if(turn == 1)
-        player1Score++;
-     else
-        player2Score++;
-    }
-    else{
-      openedCards.forEach(card => {
+  if (openedCards.length == 2) {
+    if (openedCards[0].className == openedCards[1].className) {
+      if (turn == 1) player1Score++;
+      else player2Score++;
+    } else {
+      openedCards.forEach((card) => {
         setTimeout(() => {
           setImageToCardBack(card);
-        }, 1500); 
+        }, 1250);
       });
-      if(turn == 1)
-      turn = 2;
-   else
-      turn = 1; 
+      if (turn == 1) turn = 2;
+      else turn = 1;
+    }
+    openedCards = [];
+    updateScores();
   }
-  openedCards = [];
-  updateScores();
- 
-  }
-  document.getElementById("turn").textContent = "player "+turn+" turn";
- }
+  document.getElementById("turn").textContent = "player " + turn + " turn";
+}
 
-
-function updateScores(){
-  score1Div.textContent = "player1: "+player1Score;
-  score2Div.textContent = "player2: "+player2Score;
+function updateScores() {
+  score1Div.textContent = "player1: " + player1Score;
+  score2Div.textContent = "player2: " + player2Score;
 }
 
 function removeElementAndHisChildren(element) {
@@ -101,4 +95,3 @@ function shuffleCards(cards) {
 
   return cards;
 }
- 
