@@ -57,7 +57,7 @@ function setImageToCardBack(newCard) {
       openedCards.forEach(card => {
         setTimeout(() => {
           setImageToCardBack(card);
-        }, 1000); // 1-second delay 
+        }, 1500); 
       });
       if(turn == 1)
       turn = 2;
