@@ -20,17 +20,18 @@ document.getElementById("myForm").addEventListener("submit", function(event) {
   updateScores(); //init scores of both players
 
   var memoryCardsDiv = document.getElementById("memory-cards");
+  
   for (var i = 0; i < submittedNumber; i++) {
-    for (var j = 0; j < 2; j++) {//making 2 cards of each image
-      var newCard = document.createElement("div");  //dynamically creates a new div element representing a memory card.
-      newCard.className = "image"+i;  //each card is assigned a uniwue class name
-      setImageToCardBack(newCard);   //set background image for the newly created cards   
-      cards.push(newCard);  //adds newly created cards to 'cards' array.
+    for (var j = 0; j < 2; j++) {
+      var newCard = document.createElement("div");
+      newCard.className = "image"+i;
+      setImageToCardBack(newCard);
+      cards.push(newCard); //adds newly created cards to 'cards' array.
     }
     cards = shuffleCards(cards);
     cards.forEach(element => {
-      memoryCardsDiv.appendChild(element);  // appends card element to container of cards in HTML.
-      element.addEventListener("click",flipCardLogic);  // adds event listener. card clicked--->flipCardLogic() method
+      memoryCardsDiv.appendChild(element); // appends card element to container of cards in HTML.
+      element.addEventListener("click", flipCardLogic); // adds event listener. card clicked--->flipCardLogic() method
     });
   }
 });
