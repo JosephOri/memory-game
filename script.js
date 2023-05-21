@@ -84,7 +84,7 @@ function setImageToCardBack(newCard) {
       openedCards.forEach(card => {
         setTimeout(() => {
           setImageToCardBack(card);
-        }, 1500); 
+        }, 1250);
       });
     } 
 
