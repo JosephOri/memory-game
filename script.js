@@ -6,7 +6,9 @@ let turn = 1;
 const score1Div = document.getElementById("score1");
 const score2Div = document.getElementById("score2");
 let timerID;
-document.getElementById("myForm").addEventListener("submit", function(event) {
+const startingGameForm = document.getElementById("myForm");
+
+const onStartingGameFormSubmit = (event) => {
   event.preventDefault();
   const form = document.getElementById("myForm");
   const submittedNumber = parseInt(form.inputNumber.value);
@@ -32,12 +34,16 @@ document.getElementById("myForm").addEventListener("submit", function(event) {
       element.addEventListener("click", flipCardLogic);
     });
   }
-});
-function setImageToCardBack(newCard) {
+
+};
+
+startingGameForm.addEventListener("submit", onStartingGameFormSubmit);
+
+const setImageToCardBack = (newCard)=> {
   const cardBackUrl = "cards/card-back.png";
   newCard.style.backgroundImage = "url('" + cardBackUrl + "')";
 }
- function flipCardLogic(event){
+ const flipCardLogic= (event)=> {
   const targetElement = event.target;
   const className = targetElement.classList;
   const cardFrontUrl = "cards/"+className+".jpg";
@@ -59,7 +65,7 @@ function setImageToCardBack(newCard) {
     }, 1000);
   }
   if(openedCards.length === 2){
-    if(openedCards[0].className === openedCards[1].className){ //if player found a pair
+    if(openedCards[0].className === openedCards[1].className){
       if(turn === 1) player1Score++;
       else player2Score++;
       updateScores(); 
@@ -74,10 +80,9 @@ function setImageToCardBack(newCard) {
     openedCards = [];
     checkGameEnd();
   }
-
   document.getElementById("turn").textContent = "player "+turn+" turn";
  }
-function updateScores(){
+const updateScores= ()=>{
   score1Div.textContent = "Player 1: "+player1Score + " points";
   score2Div.textContent = "Player 2: "+player2Score  + " points";
 }
@@ -89,7 +94,7 @@ function removeElementAndHisChildren(element) {
 }
 
 
-function shuffleCards(cards) {
+const shuffleCards = (cards)=> {
   let currentIndex = cards.length;
   let temporaryValue, randomIndex;
   while (currentIndex !== 0) {
@@ -101,7 +106,7 @@ function shuffleCards(cards) {
   }
   return cards;
 }
-function checkGameEnd(){
+const checkGameEnd = ()=>{
   const totalPairs = cards.length / 2;
   if(player1Score + player2Score === totalPairs){
     let result;
